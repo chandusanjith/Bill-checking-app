@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Add DATA</h2>
+  <form action="/admins/" method = "POST"> {% csrf_token %}
+<button type="submit" class="btn btn-primary">go back </button>
+</form>
+  <form action="/adddatatomodel/" method = "POST"> {% csrf_token %}
+    <div class="form-group">
+      <label for="f1">User</label>
+      <select class="form-control" id="sel1" name = "user">
+        {% for user in users %}
+        <option>{{user}}</option>
+        {% endfor %}
+      </select>
+      <br>
+      
+      <label for="f2">Discription</label>
+      <select class="form-control" id="sel1" name = "disp">
+        <option>bf</option>
+        <option>Lunch</option>
+        <option>Dinner</option>
+        <option>lunch-dinner</option>
+        <option>bf-lunch-dinner</option>
+      </select>
+      <br>
+      <label for="f3">Date</label>
+      <input type="date" id="date" name="dateuser">
+      <br>
+      <br>
+      <label for="email">Amount</label>
+      <input type="number" class="form-control" id="email" name = "amount">
+      <br>
+      <br>
+      <button type="submit" class="btn btn-primary">save </button>
+  </form>
+</div>
+
+</body>
+</html>

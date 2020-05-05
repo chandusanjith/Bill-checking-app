@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Admin</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js">
+  </script>
+
+</head>
+<style>
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button3 {padding: 14px 40px;}
+</style>
+<body>
+
+<div class="container">
+  <div class="dropdown">
+  <form action = "/adddata/" mentod = "POST">
+<button type="submit" class="btn btn-primary" style="align:middle";>Add Data</button>
+</form>
+ <form action = "/LoadData/" method = "POST">{% csrf_token %}
+      <select class="form-control" id="sel1" name = "usersed">
+        {%for usr in users%}
+        <option>{{usr}}</option>
+        {%endfor%}
+      </select>
+      <select class="form-control" id="sel1" name = "mnth">
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April	</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+      <button type="submit" class="btn btn-primary">Fetch</button>
+      </form>
+</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Timing</th>
+        <th>Cost</th>
+        <th>status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for dat in data%}
+      <tr>
+        <td>{{dat.Dateed}}</td>
+        <td>{{dat.Discription}}</td>
+        <td>{{dat.Amount}}</td>
+        <td>{{dat.Status}}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+  {%for dat in monthdata%}
+  <h1> TOTAL FOR THIS MONTH: {{dat.total}}</h1>
+  <h1> STATUS: {{dat.status}} </h1>
+  {%endfor%}
+  <br>
+    {%for dat in monthdata%}
+     {%if dat.status != 'Paid' %}
+   <form action="/changestatus/{{workinguser}}/{{wmonth}}/" method = "post">{% csrf_token %}
+  <button class="button button3">Change status to Paid</button>
+  </form>
+  {%endif%}
+  {%endfor%}
+  <br>
+  <br><br><br><br><br><br>
+</div>
+
+</body>
+</html>
